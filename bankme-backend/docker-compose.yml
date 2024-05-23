@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  rabbitmq-server:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      RABBITMQ_DEFAULT_USER: ogabrielnascr
+      RABBITMQ_DEFAULT_PASS: ogabrielnascr
+  bankme-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bankme-backend
+    ports:
+      - '3000:3000'
+    depends_on:
+      - rabbitmq-server
+    environment:
+      - PORT=3000
+      - NODE_ENV=development
+      - RABBITMQ_USER=ogabrielnascr
+      - RABBITMQ_PASS=ogabrielnascr
+      - RABBITMQ_HOST=rabbitmq-server
+      - RABBITMQ_PORT=5672
+    volumes:
+      - ./src:/usr/src/app/src
