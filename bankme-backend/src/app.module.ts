@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PayableModule } from './modules/payable/payable.module';
-import { AssignorModule } from './modules/assignor/assignor.module';
 import { UserModule } from './modules/user/user.module';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { AssignorModule } from './modules/assignor/assignor.module';
+import { ReceivableModule } from './modules/receivable/receivable.module';
 
 @Module({
   imports: [
@@ -24,9 +24,9 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         },
       },
     ]),
-    PayableModule,
-    AssignorModule,
     UserModule,
+    AssignorModule,
+    ReceivableModule,
   ],
   controllers: [],
   providers: [],
